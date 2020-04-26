@@ -9,13 +9,49 @@
 <body>
   <div id="app">
     <v-app>
-      <v-app-bar app color="0A0A0A" dark>
+      <v-app-bar app color="0A0A0A" dark clipped-left>
         <h1>ONE STOP system</h1>
         <v-spacer></v-spacer>
         <span>加盟店A様</span>
-      </v-app-bar> 
+      </v-app-bar>
+      <v-navigation-drawer app dark clipped>
+        <v-list>
+          <v-list-item-group>
+            <v-list-item v-for="(item, i) in navigationItem" :key="i">
+              <v-list-item-content>
+                <v-list-item-title v-text="item.text"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
       <v-content>
-        <v-container>Hello world</v-container>
+        <v-container>
+          <v-row>
+            <v-breadcrumbs :items="breadCrumbs" class="pl-0"></v-breadcrumbs>
+          </v-row>
+          <v-row class="mb-8">
+            <h2>ホーム</h2>
+          </v-row>
+          <v-row class="d-flex justify-space-between mb-8">
+            <div class="d-flex align-self-start">
+              <h3 class="mr-8">アラート：最終更新2020年7月1日（16:00）</h3>
+              <v-btn dark>印刷</v-btn>
+            </div>
+            <div class="d-flex align-self-end">
+              <v-radio label="見守りサービス" class="mr-8"></v-radio>
+              <v-btn dark color="primary">絞り込み</v-btn>
+            </div>
+          </v-row>
+          <v-row>
+            <v-col
+              cols="12"
+            >
+              <v-data-table :headers="headers" :items="alerts" hide-default-footer class="elevation-1">
+            </v-col>
+            </v-data-table>
+          </v-row>
+        </v-container>
       </v-content>
     </v-app>
   </div>
@@ -26,6 +62,62 @@
     new Vue({
       el: '#app',
       vuetify: new Vuetify(),
+      data: () => ({
+        navigationItem: {
+          home: {
+            text: "ホーム",
+            path: ""
+          },
+          userList: {
+            text: "利用者一覧",
+            path: ""
+          },
+          userRegisteration: {
+            text: "利用者登録",
+            path: ""
+          }
+        },
+        breadCrumbs: [
+          {
+            text: "ホーム",
+            disabled: true,
+            href: "/"
+          }
+        ],
+        headers: [
+          {
+            text: '日付', value: 'date' },
+          { text: '雪んこNo.', value: 'yukinkoNumber' },
+          { text: '氏名', value: 'name' },
+          { text: '内容', value: 'content' },
+        ],
+        alerts: [
+          {
+            date: "2020年7月1日",
+            yukinkoNumber: 11111,
+            name: "田中一郎",
+            content: "情報未取得"
+          },
+          {
+            date: "2020年7月1日",
+            yukinkoNumber: 22222,
+            name: "田中二郎",
+            content: "情報未取得"
+          },
+          {
+            date: "2020年7月1日",
+            yukinkoNumber: 33333,
+            name: "田中三郎",
+            content: "見守りサービス（3日残量に変化なし）"
+          },
+          {
+            date: "2020年7月1日",
+            yukinkoNumber: 44444,
+            name: "田中四郎",
+            content: "見守りサービス（3日残量に変化なし）"
+          },
+        ]
+      }),
     })
   </script>
 </body>
