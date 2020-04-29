@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
+
 <body>
   <div id="app">
     <v-app>
@@ -31,47 +33,51 @@
             <v-breadcrumbs :items="breadCrumbs" class="pl-0"></v-breadcrumbs>
           </v-row>
           <v-row class="mb-8">
-            <h2>ホーム</h2>
+            <h2>利用者一覧</h2>
           </v-row>
         </v-container>
         <v-container class="mb-8">
-          <v-row class="d-flex justify-space-between align-center mb-8">
-            <div class="d-flex justify-start align-center">
-              <h3 class="mr-8">アラート：最終更新2020年7月1日（16:00）</h3>
-              <v-btn dark>印刷</v-btn>
-            </div>
-            <div class="d-flex justify-end align-center">
-              <v-radio label="見守りサービス" class="mr-8"></v-radio>
-              <v-btn dark color="primary">絞り込み</v-btn>
-            </div>
-          </v-row>
           <v-row>
-            <v-col
-              cols="12"
-            >
-              <v-data-table :headers="headers" :items="alerts" hide-default-footer class="elevation-1">
-              </v-data-table>
+            <v-col cols="2">
+              <v-subheader>地区</v-subheader>
             </v-col>
-          </v-row>
-        </v-container>
-        <v-container class="mb-8">
-          <v-row class="d-flex justify-space-between align-center mb-8">
-            <div class="d-flex justify-start align-center">
-              <h3 class="mr-8">給油指示情報：最終更新2020年7月1日（16:00）</h3>
-              <v-btn dark>印刷</v-btn>
-            </div>
-            <div class="d-flex justify-end align-center">
-              <v-autocomplete :items="regions" label="地区" class="mr-8" hide-details>
+            <v-col cols="10">
+              <v-autocomplete
+                :items="regions"
+                label="地区を選択"
+              >
               </v-autocomplete>
-              <v-btn dark color="primary">絞り込み</v-btn>
-            </div>
-          </v-row>
-          <v-row>
-            <v-col cols="12">
-              <v-data-table :headers="headers" :items="alerts" hide-default-footer class="elevation-1">
-              </v-data-table>
             </v-col>
           </v-row>
+          <v-row>
+            <v-col cols="2">
+              <v-subheader>雪ん子No.</v-subheader>
+            </v-col>
+            <v-col cols="10">
+              <v-text-field
+                label="テキストを入力"
+              >
+              </v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="2">
+              <v-subheader>氏名</v-subheader>
+            </v-col>
+            <v-col cols="10">
+              <v-text-field label="テキストを入力">
+              </v-text-field>
+            </v-col>
+          </v-row>
+          <v-row class="d-flex justify-end" col="12">
+            <v-btn dark color="primary">絞り込み</v-btn>
+          </v-row>
+        </v-container>
+        <v-container>
+          <v-col cols="12">
+            <v-data-table :headers="headers" :items="userList" hide-default-footer class="elevation-1">
+            </v-data-table>
+          </v-col>
         </v-container>
       </v-content>
     </v-app>
@@ -100,42 +106,10 @@
         },
         breadCrumbs: [
           {
-            text: "ホーム",
+            text: "利用者一覧",
             disabled: true,
-            href: "/"
+            href: "/userList"
           }
-        ],
-        headers: [
-          { text: '日付', value: 'date' },
-          { text: '雪んこNo.', value: 'yukinkoNumber' },
-          { text: '氏名', value: 'name' },
-          { text: '内容', value: 'content' },
-        ],
-        alerts: [
-          {
-            date: "2020年7月1日",
-            yukinkoNumber: 11111,
-            name: "田中一郎",
-            content: "情報未取得"
-          },
-          {
-            date: "2020年7月1日",
-            yukinkoNumber: 22222,
-            name: "田中二郎",
-            content: "情報未取得"
-          },
-          {
-            date: "2020年7月1日",
-            yukinkoNumber: 33333,
-            name: "田中三郎",
-            content: "見守りサービス（3日残量に変化なし）"
-          },
-          {
-            date: "2020年7月1日",
-            yukinkoNumber: 44444,
-            name: "田中四郎",
-            content: "見守りサービス（3日残量に変化なし）"
-          },
         ],
         regions: [
           {
@@ -150,6 +124,40 @@
             value: 3,
             text: "地区3",
           },
+        ],
+        headers: [
+          { text: '雪んこNo.', value: 'yukinkoNumber' },
+          { text: '氏名', value: 'name' },
+          { text: '電話番号', value: 'phoneNumber' },
+          { text: "地区", value: "regions"},
+          { text: "センサID", value: "sensorId"},
+          { text: "見守り", value: "isMonitored"}
+        ],
+        userList: [
+          {
+            yukinkoNumber: 11111,
+            name: "田中太郎",
+            phoneNumber: "111-1111-1111",
+            regions: "秋田",
+            sensorId: 11111,
+            isMonitored: "有",
+          },
+          {
+            yukinkoNumber: 22222,
+            name: "田中二郎",
+            phoneNumber: "222-2222-2222",
+            regions: "大舘",
+            sensorId: 22222,
+            isMonitored: "無",
+          },
+          {
+            yukinkoNumber: 33333,
+            name: "田中三郎",
+            phoneNumber: "333-3333-3333",
+            regions: "能代",
+            sensorId: 33333,
+            isMonitored: "有",
+          },
         ]
       }),
 
@@ -161,4 +169,5 @@
     })
   </script>
 </body>
+
 </html>
