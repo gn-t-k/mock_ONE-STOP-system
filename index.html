@@ -35,19 +35,21 @@
           </v-row>
         </v-container>
         <v-container class="mb-8">
-          <v-row class="d-flex justify-space-between align-center mb-8">
-            <div class="d-flex justify-start align-center">
-              <h3 class="mr-8">アラート：最終更新2020年7月1日（16:00）</h3>
-              <v-btn dark>印刷</v-btn>
-            </div>
-            <div class="d-flex justify-end align-center">
-              <v-radio label="見守りサービス" class="mr-8"></v-radio>
-              <v-btn dark color="primary">絞り込み</v-btn>
-            </div>
+          <v-row class="mb-8">
+            <v-col class="d-flex justify-space-between align-center" cols="10">
+              <div class="d-flex justify-start align-center">
+                <h3 class="mr-8">アラート：最終更新2020年7月1日（16:00）</h3>
+                <v-btn dark>印刷</v-btn>
+              </div>
+              <div class="d-flex justify-end align-center">
+                <v-radio label="見守りサービス" class="mr-8"></v-radio>
+                <v-btn dark color="primary">絞り込み</v-btn>
+              </div>
+            </v-col>
           </v-row>
           <v-row>
             <v-col
-              cols="12"
+              cols="10"
             >
               <v-data-table :headers="headers" :items="alerts" hide-default-footer class="elevation-1">
               </v-data-table>
@@ -55,19 +57,21 @@
           </v-row>
         </v-container>
         <v-container class="mb-8">
-          <v-row class="d-flex justify-space-between align-center mb-8">
-            <div class="d-flex justify-start align-center">
-              <h3 class="mr-8">給油指示情報：最終更新2020年7月1日（16:00）</h3>
-              <v-btn dark>印刷</v-btn>
-            </div>
-            <div class="d-flex justify-end align-center">
-              <v-autocomplete :items="regions" label="地区" class="mr-8" hide-details>
-              </v-autocomplete>
-              <v-btn dark color="primary">絞り込み</v-btn>
-            </div>
+          <v-row class="mb-8">
+            <v-col class="d-flex justify-space-between align-center" cols="10">
+              <div class="d-flex justify-start align-center">
+                <h3 class="mr-8">給油指示情報：最終更新2020年7月1日（16:00）</h3>
+                <v-btn dark>印刷</v-btn>
+              </div>
+              <div class="d-flex justify-end align-center">
+                <v-autocomplete :items="regions" label="地区" class="mr-8" hide-details>
+                </v-autocomplete>
+                <v-btn dark color="primary">絞り込み</v-btn>
+              </div>
+            </v-col>
           </v-row>
           <v-row>
-            <v-col cols="12">
+            <v-col cols="10">
               <v-data-table :headers="headers" :items="alerts" hide-default-footer class="elevation-1">
               </v-data-table>
             </v-col>
@@ -95,14 +99,14 @@
           },
           userRegisteration: {
             text: "利用者登録",
-            href: "./index.html"
+            href: "./userRegisteration.html"
           }
         },
         breadCrumbs: [
           {
             text: "ホーム",
             disabled: true,
-            href: "/"
+            href: "./"
           }
         ],
         headers: [
