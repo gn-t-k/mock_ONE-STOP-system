@@ -78,9 +78,104 @@
         <v-container>
           <v-col cols="10">
             <v-data-table :headers="headers" :items="userList" hide-default-footer class="elevation-1">
+              <template v-slot:item.edit="{ item }">
+                <v-icon @click="openEditModal">
+                  mdi-pencil
+                </v-icon>
+              </template>
+              <template v-slot:item.delete="{ item }">
+                <v-icon @click="openDeleteModal">
+                  mdi-delete
+                </v-icon>
+              </template>
             </v-data-table>
           </v-col>
         </v-container>
+        <v-dialog v-model="editDialog" max-width="500px">
+          <v-card>
+            <v-card-title>
+              <span class="headline">利用者詳細を編集</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="5">
+                    <v-subheader>雪ん子No.</v-subheader>
+                  </v-col>
+                  <v-col cols="7">
+                    <v-text-field label="ナンバー入力" value="1111">
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="5">
+                    <v-subheader>氏名</v-subheader>
+                  </v-col>
+                  <v-col cols="7">
+                    <v-text-field label="テキストを入力" value="田中太郎">
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="5">
+                    <v-subheader>電話番号</v-subheader>
+                  </v-col>
+                  <v-col cols="7">
+                    <v-text-field label="ナンバー入力" value="111-1111-1111">
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="5">
+                    <v-subheader>地区</v-subheader>
+                  </v-col>
+                  <v-col cols="7">
+                    <v-autocomplete :items="regions" label="地区を選択">
+                    </v-autocomplete>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="5">
+                    <v-subheader>センサID</v-subheader>
+                  </v-col>
+                  <v-col cols="7">
+                    <v-text-field label="ナンバー入力" value="11111">
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="5">
+                    <v-subheader>見守りサービス</v-subheader>
+                  </v-col>
+                  <v-col cols="7">
+                    <v-switch v-model="toggle"></v-switch>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col class="d-flex justify-end">
+                    <v-btn class="mr-4" @click="closeEditModal">キャンセル</v-btn>
+                    <v-btn color="primary" @click="closeEditModal">保存</v-btn>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="deleteDialog" max-width="500px">
+          <v-card>
+            <v-card-title class="headline">確認</v-card-title>
+            <v-card-text>田中一郎さんのデータを削除しますか？</v-card-text>
+            <v-card-text>（この操作は取り消すことができません）</v-card-text>
+            <v-card-actions>
+              <v-row>
+                <v-col class="d-flex justify-end">
+                  <v-btn class="mr-4" @click="closeDeleteModal">キャンセル</v-btn>
+                  <v-btn color="warning" @click="closeDeleteModal">削除</v-btn>
+                </v-col>
+              </v-row>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-content>
     </v-app>
   </div>
@@ -128,12 +223,14 @@
           },
         ],
         headers: [
+          { text: "編集", value: "edit"},
           { text: '雪んこNo.', value: 'yukinkoNumber' },
           { text: '氏名', value: 'name' },
           { text: '電話番号', value: 'phoneNumber' },
           { text: "地区", value: "regions"},
           { text: "センサID", value: "sensorId"},
-          { text: "見守り", value: "isMonitored"}
+          { text: "見守り", value: "isMonitored"},
+          { text: "削除", value: "delete"}
         ],
         userList: [
           {
@@ -160,13 +257,32 @@
             sensorId: 33333,
             isMonitored: "有",
           },
-        ]
+        ],
+        editDialog: false,
+        deleteDialog: false,
+        toggle: true
       }),
 
       methods: {
         link(path) {
           window.location.href = path
-        }
+        },
+
+        openEditModal() {
+          this.editDialog = true
+        },
+
+        closeEditModal() {
+          this.editDialog = false
+        },
+
+        openDeleteModal() {
+          this.deleteDialog = true
+        },
+
+        closeDeleteModal() {
+          this.deleteDialog = false
+        },
       }
     })
   </script>
