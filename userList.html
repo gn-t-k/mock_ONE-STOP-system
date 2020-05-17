@@ -227,7 +227,8 @@
           { text: '電話番号', value: 'phoneNumber' },
           { text: "地区", value: "regions" },
           { text: "センサID", value: "sensorId" },
-          { text: "見守り", value: "isMonitored" },
+          {text: "タンクの容量", value: "capacity"},
+          { text: "定期配送", value: "isSubscriptionMember" },
           { text: "削除", value: "delete" }
         ],
         userList: [
@@ -237,7 +238,8 @@
             phoneNumber: "111-1111-1111",
             regions: "秋田",
             sensorId: 11111,
-            isMonitored: "有",
+            capacity: 200,
+            isSubscriptionMember: "有",
           },
           {
             yukinkoNumber: 22222,
@@ -245,7 +247,8 @@
             phoneNumber: "222-2222-2222",
             regions: "大舘",
             sensorId: 22222,
-            isMonitored: "無",
+            capacity: 200,
+            isSubscriptionMember: "無",
           },
           {
             yukinkoNumber: 33333,
@@ -253,7 +256,8 @@
             phoneNumber: "333-3333-3333",
             regions: "能代",
             sensorId: 33333,
-            isMonitored: "有",
+            capacity: 200,
+            isSubscriptionMember: "有",
           },
         ],
         editDialog: false,
